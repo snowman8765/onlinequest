@@ -10,17 +10,30 @@
         ログイン
       </div>
       <div class="panel-body">
-        <form role="form" action="user/login/" method="post">
-          <div class="form-group">
-            <label for="inputID">ID</label>
-            <input type="text" class="form-control" id="inputID" name="id" placeholder="ログインID">
+        <div class="row">
+          <div class="col-xs-8">
+            <form role="form" action="user/login/" method="post">
+              <div class="form-group">
+                <label for="inputID">ID</label>
+                <input type="text" class="form-control" id="inputID" name="id" placeholder="ログインID">
+              </div>
+              <div class="form-group">
+                <label for="inputPassword">パスワード</label>
+                <input type="password" class="form-control" id="inputPassword" name="password" placeholder="パスワード">
+              </div>
+              <button type="submit" class="btn btn-default">ログイン</button>
+            </form>
           </div>
-          <div class="form-group">
-            <label for="inputPassword">パスワード</label>
-            <input type="password" class="form-control" id="inputPassword" name="password" placeholder="パスワード">
+          <div class="col-xs-4">
+            <div class="btn-group-vertical">
+              <a href="user/login/?provider=Twitter" class="btn btn-info" role="button"><i class="fa fa-twitter"></i> Twitter</a>
+              <a href="user/login/?provider=Twitter" class="btn btn-info" role="button"><i class="fa fa-twitter"></i> Twitter</a>
+              <a href="user/login/?provider=Twitter" class="btn btn-info" role="button"><i class="fa fa-twitter"></i> Twitter</a>
+              <a href="user/login/?provider=Twitter" class="btn btn-info" role="button"><i class="fa fa-twitter"></i> Twitter</a>
+              <a href="user/login/?provider=Twitter" class="btn btn-info" role="button"><i class="fa fa-twitter"></i> Twitter</a>
+            </div>
           </div>
-          <button type="submit" class="btn btn-default">ログイン</button>
-        </form>
+        </div>
       </div>
     </div>
   </div>

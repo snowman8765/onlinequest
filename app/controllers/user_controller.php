@@ -24,7 +24,9 @@ class UserController extends Controller
     $params = $this->request->getPost();
     $id = @$params['id'];
     $password = md5(@$params['password']);
-    if($this->_login($id, $password)) {
+    $get_param = $this->request->getQuery();
+    $provider = @$get_param['provider'];
+    if($id!='' && $password!='' && $this->_login($id, $password)) {
       $this->view->message = "ログイン成功";
       $this->view->url = "../";
       $session = new Session('auth');
@@ -35,6 +37,26 @@ class UserController extends Controller
       $user['speedrun']['login_count']++;
       $user['login_time'] = time();
       $session->user = $user;
+    } else if($provider!='') {
+      $adapter = $this->_login_with($provider);
+      $user_data = $adapter->getUserProfile();
+      $id = $user_data->displayName;
+      $password = md5($user_data->identifier);
+      if(!$this->_login($id, $password)) {
+        $this->_add($id, $password);
+      } else {
+        $this->view->message = "ログイン成功";
+        $this->view->url = "../";
+        $session = new Session('auth');
+        $user = $this->_get($id, $password);
+        $user['chara'] = $this->_get_chara($id);
+        $user['speedrun'] = $this->_get_speedrun($id);
+        
+        $user['speedrun']['login_count']++;
+        $user['login_time'] = time();
+        $session->user = $user;
+      }
+      
     } else {
       $this->view->message = "ログイン失敗";
       $this->view->url = "../../";
@@ -61,7 +83,12 @@ class UserController extends Controller
     $params = $this->request->getPost();
     $id = @$params['id'];
     $password = md5(@$params['password']);
-    if($this->_add($id, $password)) {
+    $this->_add($id, $password);
+  }
+  
+  private function _add($id, $password)
+  {
+    if($this->_add_user($id, $password)) {
       $this->_add_chara($id);
       $this->_add_speedrun($id);
       $this->view->message = "登録成功";
@@ -143,7 +170,19 @@ class UserController extends Controller
     return $data !== $void;
   }
   
-  private function _add($id, $password)
+  private function _login_with($provider)
+  {
+    $path = "../library/hybridauth";
+    $config = $path.'/config.php';
+    require_once($path."/Hybrid/Auth.php");
+    
+    $hybridauth = new Hybrid_Auth($config);
+    $p = @trim(strip_tags($provider));
+    $adapter = $hybridauth->authenticate($p);
+    return $adapter;
+  }
+  
+  private function _add_user($id, $password)
   {
     $model = $this->model('User');
     return $model->createUser($id, $password);
