@@ -1,0 +1,22 @@
+{"title":"ステージ2",
+ "back_img":"kaidou0331_800.jpg",
+ "event":[{"none":"none"},
+          {"battle":{"enemy_id":["neko1"],
+                     "big_question":"7"
+                    }
+          },
+          {"battle":{"enemy_id":["neko2"],
+                     "big_question":"7"
+                    }
+          },
+          {"none":"none"},
+          {"item":{"item_id":["item1","item2"]}},
+          {"none":"none"},
+          {"none":"none"},
+          {"boss":{"enemy_id":["boss2"],
+                   "q_id":["6"]
+                  }
+          }
+ ],
+ "bonus":["item1"]
+}

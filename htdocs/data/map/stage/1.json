@@ -1,0 +1,18 @@
+{"title":"ステージ1",
+ "back_img":"1.png",
+ "event":[{"none":"none"},
+          {"battle":{"enemy_id":["hoge","foo"],
+                     "big_question":"6"
+                    }
+          },
+          {"none":"none"},
+          {"item":{"item_id":["item1","item2"]}},
+          {"none":"none"},
+          {"none":"none"},
+          {"boss":{"enemy_id":["boss1"],
+                   "big_question":"6"
+                  }
+          }
+ ],
+ "bonus":["item1"]
+}
